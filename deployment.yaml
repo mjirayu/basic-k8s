@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: basic-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: basic-backend
+  template:
+    metadata:
+      labels:
+        app: basic-backend
+    spec:
+      terminationGracePeriodSeconds: 60,
+      containers:
+      - args:
+        - node src/index.js
+        command:
+        - /bin/ash
+        - -c
+        image: "mjirayu/basic-backend:1.0"
+        imagePullPolicy: Always
+        name: basic-backend
+        ports:
+        - containerPort: 8000
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Gi
